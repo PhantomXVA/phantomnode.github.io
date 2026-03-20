@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="PhantomNode — инфраструктура, которая работает">
+    <title>PhantomNode — инфраструктура</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #010003;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            color: #b0ffea;
+            line-height: 1.5;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(#0affbc10 1px, transparent 1px),
+                linear-gradient(90deg, #0affbc10 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow {
+            position: fixed;
+            top: 20%;
+            left: -20%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(10,255,188,0.08) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid #1affbc40;
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #b0ffea, #2effbc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            color: #2affbc;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #9cffdb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 6px #2affbc;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #2affbc;
+            text-decoration: none;
+            border: 1px solid #2affbc60;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            background: #2affbc20;
+            border-color: #2affbc;
+        }
+
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(8, 18, 20, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid #2affbc60;
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            color: #2affbc;
+            cursor: pointer;
+            font-family: monospace;
+            transition: 0.2s;
+        }
+
+        .audio-control:hover {
+            background: #2affbc20;
+            border-color: #2affbc;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #2affbc;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            color: #6fcbad;
+        }
+
+        /* карточки с цитатками */
+        .quote-card {
+            background: rgba(8, 18, 20, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid #1affbc40;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .quote-card:hover {
+            border-color: #2affbc;
+        }
+
+        .quote-text {
+            font-size: 1rem;
+            color: #e0fff0;
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+        }
+
+        .quote-author {
+            font-size: 0.7rem;
+            color: #5fcbad;
+            text-align: right;
+            font-family: monospace;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: #2affbc;
+            margin: 1.8rem 0 1rem 0;
+            border-left: 2px solid #2affbc;
+            padding-left: 0.8rem;
+        }
+
+        .contact-block {
+            background: rgba(42, 255, 188, 0.05);
+            border: 1px solid #1affbc30;
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .contact-block a {
+            color: #2affbc;
+            text-decoration: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #1affbc30;
+            font-size: 0.7rem;
+            color: #47b392;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #1affbc20;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 700px) {
+            h1 { font-size: 1.5rem; }
+            .container { padding: 1.2rem; }
+            .nav-links { gap: 1rem; }
+            .quote-text { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+<div class="glow"></div>
+
+<div class="container">
+    <div class="nav">
+        <div class="logo">PHANTOM_NODE <span>// vpn</span></div>
+        <div class="nav-links">
+            <a href="#">ГЛАВНАЯ</a>
+            <a href="#">ТАРИФЫ</a>
+            <a href="#">ТЕХНОЛОГИИ</a>
+            <a href="#">ИНФРА</a>
+            <a href="#">ПОДДЕРЖКА</a>
+        </div>
+    </div>
+
+    <h1>🚀 ИНФРАСТРУКТУРА</h1>
+    <div class="sub">как это всё работает — простыми словами</div>
+
+    <!-- главная мысль -->
+    <div class="quote-card" style="border-color: #2affbc; background: rgba(42,255,188,0.08);">
+        <div class="quote-text">
+            «Снаружи — обычная дверь. Внутри — целый чертог. <strong>Как ТАРДИС</strong>, только без синего ящика. 
+            <strong>Точно также в пространстве</strong> — пакет влетает в Германии, вылетает в Нидерландах, а ты даже не заметил.»
+        </div>
+        <div class="quote-author">— инженерная метафора</div>
+    </div>
+
+    <div class="section-title">🎯 ГДЕ СТОИТ</div>
+    <div class="quote-card">
+        <div class="quote-text">
+            «У нас есть серверы в двух местах. Германия и Нидерланды. 
+            Они не просто стоят — они разговаривают друг с другом, делят нагрузку и подстраховывают. 
+            Если один чихнул, второй подхватывает. Без паники.»
+        </div>
+        <div class="quote-author">— география</div>
+    </div>
+
+    <div class="quote-card">
+        <div class="quote-text">
+            «В Германии — основная база. В Нидерландах — резерв и дополнительная мощность. 
+            Выглядит как два сервера. Внутри — куча магии, но без фокусов. Просто нормальная инженерия.»
+        </div>
+        <div class="quote-author">— локации</div>
+    </div>
+
+    <div class="section-title">🔧 КАК ЭТО РАБОТАЕТ</div>
+    <div class="quote-card">
+        <div class="quote-text">
+            «Ты подключаешься к одной точке. А внутри твой трафик прыгает между узлами, 
+            как заяц по полю. Зачем? Чтобы никто не понял, откуда ты на самом деле и куда идёшь. 
+            <strong>Точно также в пространстве</strong> — один вход, много выходов.»
+        </div>
+        <div class="quote-author">— маршрутизация</div>
+    </div>
+
+    <div class="quote-card">
+        <div class="quote-text">
+            «Серверы не хранят логи. Вообще. Никаких «мы собираем только для статистики». 
+            Статистику мы смотрим по нагрузке, а не по тому, кто куда ходил. 
+            Если кто-то говорит, что ему нужно знать, какие сайты ты открываешь, чтобы «улучшить сервис» — это не к нам.»
+        </div>
+        <div class="quote-author">— конфиденциальность</div>
+    </div>
+
+    <div class="section-title">📡 СВЯЗЬ С МИРОМ</div>
+    <div class="quote-card">
+        <div class="quote-text">
+            «Телеграм-канал — @phantomnode_channel. Там новости, обновления и иногда смешные картинки. 
+            Техподдержка — @phantomnode_support. Отвечаем быстро, без роботов. 
+            Почта — support@phantomnode.ru — если хочешь официально или телеграм недоступен.»
+        </div>
+        <div class="quote-author">— контакты</div>
+    </div>
+
+    <div class="section-title">🤔 ЧТО БУДЕТ ДАЛЬШЕ</div>
+    <div class="quote-card">
+        <div class="quote-text">
+            «Планируем добавить Англию. Кодовое название TARDIS. 
+            Почему? Потому что <strong>как ТАРДИС</strong> — снаружи незаметно, внутри мощно. 
+            Когда появится — скажем в канале. Сроки? Когда будет готово. Мы не обещаем дедлайны, чтобы потом не оправдываться.»
+        </div>
+        <div class="quote-author">— будущее</div>
+    </div>
+
+    <div class="quote-card">
+        <div class="quote-text">
+            «Ещё хотим сделать простые приложения, чтобы не возиться с настройками. 
+            И рефералку — чтобы друзей звать было не стыдно. 
+            Всё остальное — в секрете. Слишком рано рассказывать.»
+        </div>
+        <div class="quote-author">— планы</div>
+    </div>
+
+    <div class="section-title">💡 КОРОТКО</div>
+    <div class="quote-card">
+        <div class="quote-text">
+            «Серверы в Европе. Логи не храним. Нагрузку делим автоматически. 
+            Если что-то ломается — чиним быстро. 
+            Если не ломается — не трогаем. 
+            Поддержка отвечает. Телеграм-канал живой. 
+            Всё остальное — когда будет, тогда и будет.»
+        </div>
+        <div class="quote-author">— суть</div>
+    </div>
+
+    <div class="contact-block">
+        📱 <strong>Telegram-канал:</strong> <a href="#">@phantomnode_channel</a><br>
+        💬 <strong>Поддержка:</strong> <a href="#">@phantomnode_support</a><br>
+        📧 <strong>Email:</strong> <a href="mailto:support@phantomnode.ru">support@phantomnode.ru</a>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="#" class="back-link">← НА ГЛАВНУЮ</a>
+    </div>
+
+    <div class="footer">
+        <span>© PHANTOM NODE // работает, не падает, логи не хранит</span>
+    </div>
+</div>
+
+<!-- кнопка управления звуком -->
+<div id="audioControl" class="audio-control">🔊 ЗВУК ВКЛ</div>
+
+<script>
+    (function() {
+        let audioElement = null;
+        let isEnabled = true;
+        let intervalId = null;
+        
+        const controlBtn = document.getElementById('audioControl');
+        
+        function playSound() {
+            if (!isEnabled) return;
+            if (!audioElement) return;
+            
+            audioElement.currentTime = 0;
+            audioElement.play().catch(e => {
+                console.log('play error:', e);
+            });
+        }
+        
+        function initAudio() {
+            if (audioElement) return;
+            
+            audioElement = new Audio('tardis.wav');
+            audioElement.preload = 'auto';
+            audioElement.load();
+            
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                playSound();
+            }, 90000);
+        }
+        
+        function toggleAudio() {
+            isEnabled = !isEnabled;
+            if (isEnabled) {
+                controlBtn.textContent = '🔊 ЗВУК ВКЛ';
+                if (audioElement) playSound();
+            } else {
+                controlBtn.textContent = '🔇 ЗВУК ВЫКЛ';
+                if (audioElement) {
+                    audioElement.pause();
+                    audioElement.currentTime = 0;
+                }
+            }
+        }
+        
+        controlBtn.addEventListener('click', toggleAudio);
+        
+        initAudio();
+        
+        setTimeout(() => {
+            if (audioElement && isEnabled) {
+                audioElement.play().catch(e => {
+                    console.log('auto-play blocked');
+                    const hint = document.createElement('div');
+                    hint.style.position = 'fixed';
+                    hint.style.bottom = '80px';
+                    hint.style.right = '20px';
+                    hint.style.background = 'rgba(8,18,20,0.9)';
+                    hint.style.border = '1px solid #2affbc';
+                    hint.style.borderRadius = '8px';
+                    hint.style.padding = '0.5rem 1rem';
+                    hint.style.fontSize = '0.7rem';
+                    hint.style.color = '#2affbc';
+                    hint.style.zIndex = '100';
+                    hint.style.fontFamily = 'monospace';
+                    hint.innerHTML = '🔊 Нажми в любом месте — заиграет TARDIS';
+                    document.body.appendChild(hint);
+                    setTimeout(() => hint.remove(), 4000);
+                });
+            }
+        }, 1000);
+        
+        let played = false;
+        function tryPlay() {
+            if (!played && audioElement && isEnabled && audioElement.paused) {
+                audioElement.play().catch(e => {});
+                played = true;
+            }
+        }
+        
+        document.body.addEventListener('click', tryPlay);
+        document.body.addEventListener('touchstart', tryPlay);
+    })();
+</script>
+</body>
+</html>
