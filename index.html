@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="PhantomNode — современные решения для защиты сетевых соединений и приватности в цифровой среде. Технологии шифрования, стабильность, конфиденциальность.">
+    <meta name="keywords" content="VPN, защита соединений, приватность, шифрование трафика, сервис VPN">
+    <meta name="author" content="PhantomNode">
+    <title>PhantomNode — защищённые сетевые решения</title>
+    <style>
+        /* ==================== RESET & БАЗА ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #010003;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            color: #b0ffea;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        /* ==================== ТЕХНОЛОГИЧНЫЙ ФОН ==================== */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(#0affbc10 1px, transparent 1px),
+                linear-gradient(90deg, #0affbc10 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow {
+            position: fixed;
+            top: 20%;
+            left: -20%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(10,255,188,0.08) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ==================== ОСНОВНОЙ КОНТЕЙНЕР ==================== */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        /* ==================== ШАПКА / НАВИГАЦИЯ ==================== */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid #1affbc40;
+            padding-bottom: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #b0ffea, #2effbc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 5px #2effbc40;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: #2affbc;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #9cffdb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            border-bottom-color: #2affbc;
+            text-shadow: 0 0 6px #2affbc;
+        }
+
+        /* ==================== ГЛАВНЫЙ БЛОК ==================== */
+        .hero {
+            text-align: left;
+            margin-bottom: 4rem;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            background: #1affbc20;
+            border: 1px solid #1affbc;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(2px);
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #d4ffec, #1affbc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px #1affbc30;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            color: #8cfcd6;
+            margin-top: 1rem;
+            border-left: 3px solid #2affbc;
+            padding-left: 1rem;
+            max-width: 600px;
+        }
+
+        /* ==================== КАРТОЧКИ УСЛУГ ==================== */
+        .pricing {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 4rem 0;
+        }
+
+        .card {
+            background: rgba(8, 18, 20, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid #1affbc40;
+            border-radius: 28px;
+            padding: 2rem 1.8rem;
+            width: 280px;
+            transition: 0.25s ease;
+            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+        }
+
+        .card:hover {
+            border-color: #2effbc;
+            transform: translateY(-6px);
+            box-shadow: 0 0 25px rgba(42,255,188,0.2);
+        }
+
+        .card-title {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-price {
+            font-size: 2.3rem;
+            font-weight: bold;
+            color: #fff;
+            margin: 1rem 0;
+            letter-spacing: 1px;
+        }
+
+        .card-price small {
+            font-size: 0.9rem;
+            color: #8effc6;
+        }
+
+        .card-feature {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .card-feature li {
+            margin: 0.6rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #bbffea;
+        }
+
+        .card-feature li::before {
+            content: "▶";
+            color: #2affbc;
+            font-size: 0.7rem;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid #2affbc;
+            color: #2affbc;
+            padding: 0.7rem 0;
+            width: 100%;
+            border-radius: 40px;
+            font-weight: bold;
+            font-family: monospace;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #2affbc20;
+            box-shadow: 0 0 12px #2affbc80;
+            color: #ffffff;
+            border-color: #9effda;
+        }
+
+        /* ==================== СЕКЦИЯ О ПРОЕКТЕ ==================== */
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: space-between;
+            margin: 5rem 0;
+            border-top: 1px solid #1affbc30;
+            padding-top: 3rem;
+        }
+
+        .info-block {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .info-block h3 {
+            font-size: 1.2rem;
+            border-left: 3px solid #2affbc;
+            padding-left: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-block p {
+            font-size: 0.9rem;
+            color: #b2f7e0;
+        }
+
+        /* ==================== ФУТЕР ==================== */
+        .footer {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 2rem;
+            border-top: 1px solid #1affbc30;
+            font-size: 0.75rem;
+            color: #47b392;
+        }
+
+        .glitch-text {
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; text-shadow: 0 0 0px #2affbc;}
+            50% { opacity: 0.95; text-shadow: 0 0 3px #2affbc;}
+            100% { opacity: 1; text-shadow: 0 0 0px #2affbc;}
+        }
+
+        /* ==================== АДАПТИВ ==================== */
+        @media (max-width: 800px) {
+            h1 { font-size: 2.5rem; }
+            .container { padding: 1.5rem; }
+            .pricing { gap: 1.2rem; }
+        }
+
+        /* дополнительный стиль для метрик */
+        .metric-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .metric-card {
+            border-left: 2px solid #2affbc;
+            padding-left: 1rem;
+        }
+        .metric-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .metric-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+<div class="glow"></div>
+
+<div class="container">
+    <!-- навигация -->
+    <div class="nav">
+        <div class="logo">PHANTOM_NODE <span>// защита связи</span></div>
+        <div class="nav-links">
+            <a href="index.html">ТЕХНОЛОГИИ</a>
+            <a href="tariffs.html">ТАРИФЫ</a>
+            <a href="technology.html">ИНФРАСТРУКТУРА</a>
+            <a href="support.html">ПОДДЕРЖКА</a>
+        </div>
+    </div>
+
+    <!-- герой -->
+    <div class="hero">
+        <div class="badge">🔒 ЗАЩИЩЁННЫЕ КАНАЛЫ СВЯЗИ | HIGH-TECH VPN 🔒</div>
+        <h1>PHANTOM NODE<br>ЦИФРОВАЯ ЗАЩИТА // КОНФИДЕНЦИАЛЬНОСТЬ</h1>
+        <div class="hero-sub">Современные методы шифрования. Стабильность соединения. Ваши данные под надёжной защитой.</div>
+    </div>
+
+    <!-- тарифы (соответствуют законодательству, без упоминаний обхода ограничений) -->
+    <div class="pricing">
+        <div class="card">
+            <div class="card-title">СТАНДАРТ</div>
+            <div class="card-price">250 ₽ <small>/мес</small></div>
+            <ul class="card-feature">
+                <li>До 100 Мбит/с</li>
+                <li>2 подключённых устройства</li>
+                <li>Европейские узлы связи</li>
+                <li>Техподдержка 24/7</li>
+            </ul>
+            <a href="https://t.me/phantomnodegermanybot" class="btn">ВЫБРАТЬ ТАРИФ</a>
+        </div>
+        <div class="card">
+            <div class="card-title">ПРЕМИУМ</div>
+            <div class="card-price">550 ₽ <small>/мес</small></div>
+            <ul class="card-feature">
+                <li>До 300 Мбит/с</li>
+                <li>3 активных устройства</li>
+                <li>Приоритетная пропускная способность</li>
+                <li>Расширенная поддержка</li>
+                <li>Выделенные серверные мощности</li>
+            </ul>
+            <a href="https://t.me/phantomovpn" class="btn">ВЫБРАТЬ ТАРИФ</a>
+        </div>
+        <div class="card">
+            <div class="card-title">ТЕСТОВЫЙ</div>
+            <div class="card-price">30 ₽ <small>/3 дня</small></div>
+            <ul class="card-feature">
+                <li>До 70 Мбит/с</li>
+                <li>1 устройство</li>
+                <li>Оценка всех функций</li>
+                <li>Без автоматической пролонгации</li>
+            </ul>
+            <a href="https://t.me/phantomnodegermanybot" class="btn">АКТИВИРОВАТЬ</a>
+        </div>
+    </div>
+
+    <!-- инфраструктура / описание услуг в рамках закона -->
+    <div class="info-section">
+        <div class="info-block">
+            <h3>🔻 ИНЖЕНЕРНАЯ ЭКСПЕРТИЗА</h3>
+            <p>Сервис построен на современных стандартах шифрования трафика. Применяются надёжные протоколы для защиты передаваемых данных от несанкционированного доступа. Мы гарантируем стабильность и высокую доступность.</p>
+        </div>
+        <div class="info-block">
+            <h3>🌐 СОБЛЮДЕНИЕ НОРМ</h3>
+            <p>Деятельность компании осуществляется в строгом соответствии с законодательством РФ. Сервис предоставляет услуги защиты персональных данных и шифрования каналов связи для физических и юридических лиц.</p>
+        </div>
+        <div class="info-block">
+            <h3>🛸 ГЛОБАЛЬНАЯ СЕТЬ</h3>
+            <p>Распределённая инфраструктура с дата-центрами в Европе. Все узлы работают на высокопроизводительном оборудовании с резервированием каналов, что обеспечивает бесперебойную работу сервиса.</p>
+        </div>
+    </div>
+
+    <!-- динамическая информация без раскрытия юзеров и внутренних деталей -->
+    <div class="metric-row">
+        <div class="metric-card">
+            <div class="metric-number" id="uptimeValue">99.9%</div>
+            <div class="metric-label">ДОСТУПНОСТЬ СЕРВИСА</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-number">AES-256</div>
+            <div class="metric-label">СТАНДАРТ ШИФРОВАНИЯ</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-number">24/7</div>
+            <div class="metric-label">ТЕХНИЧЕСКАЯ ПОДДЕРЖКА</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>© PHANTOM NODE // ЗАЩИТА ДАННЫХ И КОНФИДЕНЦИАЛЬНОСТЬ</span><br>
+        <span style="font-size: 0.7rem;">ООО «Фантом Нод» | Лицензия на оказание телематических услуг связи | Политика конфиденциальности размещена по запросу</span><br>
+        <span style="font-size: 0.65rem; color: #5aa98b;">Технологии шифрования применяются в соответствии с законодательством РФ. Сервис не предоставляет сведения о пользователях третьим лицам.</span>
+    </div>
+</div>
+
+<!-- простой анимационный элемент для демонстрации uptime (без сбора статистики) -->
+<script>
+    (function() {
+        // Элемент для отображения доступности — просто декоративная функция,
+        // не собирает данные о пользователях и не передаёт их.
+        const uptimeSpan = document.getElementById('uptimeValue');
+        if (uptimeSpan) {
+            const uptimeValues = ['99.9%', '99.92%', '99.88%', '99.95%', '99.91%'];
+            let idx = 0;
+            setInterval(() => {
+                // лёгкая анимация для демонстрации динамики, без привязки к реальным показателям
+                idx = (idx + 1) % uptimeValues.length;
+                uptimeSpan.textContent = uptimeValues[idx];
+            }, 5000);
+        }
+    })();
+</script>
+</body>
+</html>
