@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="PhantomNode — поддержка и контакты">
+    <title>PhantomNode — Поддержка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #010003;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            color: #b0ffea;
+            line-height: 1.5;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(#0affbc10 1px, transparent 1px),
+                linear-gradient(90deg, #0affbc10 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow {
+            position: fixed;
+            top: 20%;
+            left: -20%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(10,255,188,0.08) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid #1affbc40;
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #b0ffea, #2effbc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            color: #2affbc;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #9cffdb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 6px #2affbc;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #2affbc;
+            text-decoration: none;
+            border: 1px solid #2affbc60;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            background: #2affbc20;
+            border-color: #2affbc;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #2affbc;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            color: #6fcbad;
+        }
+
+        /* карточки */
+        .card {
+            background: rgba(8, 18, 20, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid #1affbc40;
+            border-radius: 24px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            border-color: #2affbc;
+        }
+
+        .contact-big {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .tg-button {
+            display: inline-block;
+            background: transparent;
+            border: 2px solid #2affbc;
+            color: #2affbc;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: monospace;
+            transition: 0.2s;
+            margin: 0.5rem 0;
+        }
+
+        .tg-button:hover {
+            background: #2affbc20;
+            box-shadow: 0 0 15px #2affbc80;
+            color: #fff;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+            padding: 0.8rem;
+            border-left: 2px solid #2affbc;
+        }
+
+        .contact-label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #8effc6;
+        }
+
+        .contact-value {
+            color: #fff;
+            word-break: break-all;
+        }
+
+        .contact-value a {
+            color: #2affbc;
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-item {
+            margin: 1rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #1affbc20;
+        }
+
+        .faq-q {
+            color: #2affbc;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .faq-a {
+            font-size: 0.85rem;
+            color: #c0f5e6;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #1affbc30;
+            font-size: 0.7rem;
+            color: #47b392;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #1affbc20;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 700px) {
+            h1 { font-size: 1.5rem; }
+            .container { padding: 1.2rem; }
+            .nav-links { gap: 1rem; }
+            .tg-button { font-size: 1rem; padding: 0.8rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+<div class="glow"></div>
+
+<div class="container">
+    <div class="nav">
+        <div class="logo">PHANTOM_NODE <span>// vpn</span></div>
+        <div class="nav-links">
+            <a href="index.html">ГЛАВНАЯ</a>
+            <a href="tariffs.html">ТАРИФЫ</a>
+            <a href="technology.html">ТЕХНОЛОГИИ</a>
+            <a href="support.html">ПОДДЕРЖКА</a>
+        </div>
+    </div>
+
+    <h1>🛟 ПОДДЕРЖКА</h1>
+    <div class="sub">есть вопросы? пиши, поможем</div>
+
+    <!-- главный контакт -->
+    <div class="card" style="text-align: center;">
+        <div class="contact-big">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">📱</div>
+            <div style="margin-bottom: 1rem;">Самый быстрый способ — Telegram</div>
+            <a href="https://t.me/phantomnodev" target="_blank" class="tg-button">@phantomnodev</a>
+            <div style="font-size: 0.7rem; margin-top: 1rem; color: #5fcbad;">отвечаем обычно в течение часа</div>
+        </div>
+    </div>
+
+    <!-- другие контакты -->
+    <div class="card">
+        <div style="font-size: 1.1rem; margin-bottom: 1rem; color: #2affbc;">📞 ДРУГИЕ СПОСОБЫ</div>
+        
+        <div class="contact-row">
+            <div class="contact-label">📧 Email:</div>
+            <div class="contact-value"><a href="https://t.me/phantomnodev">@phantomnodev</a></div>
+        </div>
+        
+        <div class="contact-row">
+            <div class="contact-label">📢 Канал:</div>
+            <div class="contact-value"><a href="#">@phantomovpn</a> — новости и обновления</div>
+        </div>
+        
+        <div class="contact-row">
+            <div class="contact-label">🐛 Баги:</div>
+            <div class="contact-value">тоже в Telegram, помечай словом «баг»</div>
+        </div>
+        
+        <div class="contact-row">
+            <div class="contact-label">💰 Финансы:</div>
+            <div class="contact-value">только на почту или в личку менеджеру</div>
+        </div>
+    </div>
+
+    <!-- частые вопросы -->
+    <div class="card">
+        <div style="font-size: 1.1rem; margin-bottom: 1rem; color: #2affbc;">❓ ЧАСТО СПРАШИВАЮТ</div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Как получить доступ после оплаты?</div>
+            <div class="faq-a">На почту или в Telegram придёт конфиг. Если через 15 минут ничего нет — стучись в поддержку.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Что делать, если не работает?</div>
+            <div class="faq-a">Проверь настройки, перезапусти клиент. Если не помогло — пиши, поможем разобраться.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Можно вернуть деньги?</div>
+            <div class="faq-a">Если тариф не активировали — возврат в течение 24 часов. Если активировали и что-то не так — напиши, решим.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Сколько устройств можно подключить?</div>
+            <div class="faq-a">Стандарт — 2, Премиум — 3. Trial — 1 устройство.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">А что за серверы?</div>
+            <div class="faq-a">Германия и Нидерланды. Скоро добавим Англию (проект TARDIS).</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Логи храните?</div>
+            <div class="faq-a">Нет. Вообще никаких. Только текущие сессии для балансировки.</div>
+        </div>
+    </div>
+
+    <!-- просто для души -->
+    <div class="card" style="text-align: center; background: rgba(42,255,188,0.05);">
+        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎧</div>
+        <div style="font-size: 0.85rem;">Если молчим больше суток — значит, что-то случилось. Проверь канал, там будет пост.</div>
+        <div style="font-size: 0.75rem; margin-top: 0.5rem; color: #5fcbad;">обычно отвечаем быстро, но бывает по-разному</div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="#" class="back-link">← НА ГЛАВНУЮ</a>
+    </div>
+
+    <div class="footer">
+        <span>© PHANTOM NODE // поддержка живая, не робот</span><br>
+        <span style="font-size: 0.65rem;">tg: @phantomnodev | email: support@phantomnode.ru</span>
+    </div>
+</div>
+
+<!-- кнопка управления звуком (если нужна) -->
+<div id="audioControl" class="audio-control" style="display: none;">🔊 ЗВУК ВКЛ</div>
+
+<script>
+    // если нужен звук на этой странице — раскомментировать, но по дефолту выключил
+    // чтобы не дублировать на каждой странице
+    const audioControl = document.getElementById('audioControl');
+    if (audioControl) audioControl.style.display = 'none';
+</script>
+</body>
+</html>
