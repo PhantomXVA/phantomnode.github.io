@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>PhantomNode — Тарифы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #010003;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            color: #b0ffea;
+            line-height: 1.5;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(#0affbc10 1px, transparent 1px),
+                linear-gradient(90deg, #0affbc10 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow {
+            position: fixed;
+            top: 20%;
+            left: -20%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(10,255,188,0.08) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid #1affbc40;
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #b0ffea, #2effbc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            color: #2affbc;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #9cffdb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 6px #2affbc;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #2affbc;
+            text-decoration: none;
+            border: 1px solid #2affbc60;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            background: #2affbc20;
+            border-color: #2affbc;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #2affbc;
+        }
+
+        .sub {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            color: #8cfcd6;
+        }
+
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: rgba(8, 18, 20, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid #1affbc40;
+            border-radius: 28px;
+            padding: 2rem 1.8rem;
+            width: 300px;
+            transition: 0.25s ease;
+        }
+
+        .card:hover {
+            border-color: #2effbc;
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(42,255,188,0.15);
+        }
+
+        .card.popular {
+            border-color: #2effbc;
+            box-shadow: 0 0 15px rgba(42,255,188,0.2);
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #2affbc;
+            color: #010003;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-price {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #fff;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .card-price small {
+            font-size: 0.8rem;
+            color: #8effc6;
+        }
+
+        .price-note {
+            font-size: 0.7rem;
+            color: #5fcbad;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1.2rem 0 1.5rem;
+        }
+
+        .feature-list li {
+            margin: 0.6rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #bbffea;
+            font-size: 0.85rem;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #2affbc;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid #2affbc;
+            color: #2affbc;
+            padding: 0.7rem 0;
+            width: 100%;
+            border-radius: 40px;
+            font-weight: bold;
+            font-family: monospace;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: #2affbc20;
+            box-shadow: 0 0 12px #2affbc80;
+            color: #ffffff;
+            border-color: #9effda;
+        }
+
+        .faq {
+            margin-top: 3rem;
+            background: rgba(0, 20, 18, 0.4);
+            border-radius: 24px;
+            padding: 1.8rem;
+            border: 1px solid #1affbc30;
+        }
+
+        .faq h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: #2affbc;
+        }
+
+        .faq-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: #d4ffec;
+            margin-bottom: 0.3rem;
+        }
+
+        .faq-answer {
+            font-size: 0.85rem;
+            color: #b0f7e0;
+            padding-left: 1rem;
+            border-left: 2px solid #2affbc60;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #1affbc30;
+            font-size: 0.7rem;
+            color: #47b392;
+        }
+
+        @media (max-width: 700px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 1.2rem; }
+            .nav-links { gap: 1rem; }
+            .card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+<div class="glow"></div>
+
+<div class="container">
+    <div class="nav">
+        <div class="logo">PHANTOM_NODE <span>// vpn</span></div>
+        <div class="nav-links">
+            <a href="#">ГЛАВНАЯ</a>
+            <a href="#">ТАРИФЫ</a>
+            <a href="#">ТЕХНОЛОГИИ</a>
+            <a href="#">ПОДДЕРЖКА</a>
+        </div>
+    </div>
+
+    <h1>💰 ТАРИФЫ</h1>
+    <div class="sub">
+        Выбери то, что подходит. Без скрытых платежей, без автопродления на тестовом тарифе.
+    </div>
+
+    <div class="pricing-grid">
+        <!-- TRIAL / ТЕСТОВЫЙ -->
+        <div class="card">
+            <div class="card-title">TRIAL</div>
+            <div class="card-price">30 ₽ <small>/3 дня</small></div>
+            <div class="price-note">Попробовать перед покупкой</div>
+            <ul class="feature-list">
+                <li>До 70 Мбит/с</li>
+                <li>1 устройство</li>
+                <li>Все серверы (доступны)</li>
+                <li>Без автопродления</li>
+                <li>Техподдержка в чате</li>
+            </ul>
+            <a href="#" class="btn">ПОПРОБОВАТЬ</a>
+        </div>
+
+        <!-- STANDARD / СТАНДАРТ -->
+        <div class="card popular">
+            <div class="popular-badge">🔥 ЧАЩЕ ВСЕГО</div>
+            <div class="card-title">STANDARD</div>
+            <div class="card-price">250 ₽ <small>/мес</small></div>
+            <div class="price-note">≈ 8,3 ₽ в день</div>
+            <ul class="feature-list">
+                <li>До 100 Мбит/с</li>
+                <li>2 устройства одновременно</li>
+                <li>Серверы в Европе</li>
+                <li>Подходит для 4K и игр</li>
+                <li>Приоритетная поддержка</li>
+            </ul>
+            <a href="#" class="btn">ПОДКЛЮЧИТЬ</a>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="card">
+            <div class="card-title">PREMIUM</div>
+            <div class="card-price">550 ₽ <small>/мес</small></div>
+            <div class="price-note">Для тяжёлых задач и всей семьи</div>
+            <ul class="feature-list">
+                <li>До 300 Мбит/с</li>
+                <li>3 устройства одновременно</li>
+                <li>Выделенные серверные мощности</li>
+                <li>P2P / торренты разрешены</li>
+                <li>Приоритетная поддержка 24/7</li>
+            </ul>
+            <a href="#" class="btn">ВЫБРАТЬ</a>
+        </div>
+    </div>
+
+    <!-- Частые вопросы -->
+    <div class="faq">
+        <h3>❓ ЧТО ЕЩЁ СПРОСИТЬ?</h3>
+        <div class="faq-item">
+            <div class="faq-question">Как оплатить?</div>
+            <div class="faq-answer">Карта, СБП, крипта (USDT, BTC) — как удобно. После оплаты придёт конфиг в Telegram.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Можно ли вернуть деньги?</div>
+            <div class="faq-answer">Если что-то не работает — напиши в поддержку, разберёмся. Возврат в течение 24 часов после оплаты, если не активировали тариф.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">А что за серверы?</div>
+            <div class="faq-answer">Германия, Нидерланды. В премиуме — выделенные мощности, в стандарте — общие, но стабильные. Всё без логов.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">TRIAL — это реально 30 рублей?</div>
+            <div class="faq-answer">Да, 30 рублей на 3 дня. Дальше сам решаешь — продлевать или нет. Автоматически не спишем.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">На чём работает?</div>
+            <div class="faq-answer">Windows, macOS, Linux, Android, iOS. Конфиги выдаём под любой клиент, который поддерживает современные протоколы.</div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="#" class="back-link">← НА ГЛАВНУЮ</a>
+    </div>
+
+    <div class="footer">
+        <span>© PHANTOM NODE // Честные цены, никакой магии</span>
+    </div>
+</div>
+</body>
+</html>
